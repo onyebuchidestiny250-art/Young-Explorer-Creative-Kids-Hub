@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Young Explorer & Creative Kids Hub is a playful educational website for children to explore, create, learn, and earn rewards."
+    />
+    <title>Young Explorer & Creative Kids Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css?v=motion" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="navbar container" aria-label="Main navigation">
+        <a href="#home" class="brand" aria-label="Young Explorer & Creative Kids Hub home">
+          <span class="brand-mark">Y</span>
+          <span>Young Explorer</span>
+        </a>
+
+        <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="nav-menu">
+          <ul class="nav-list">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#explore">Explore</a></li>
+            <li><a href="#creative-corner">Creative Corner</a></li>
+            <li><a href="#games">Games &amp; Quizzes</a></li>
+            <li><a href="#challenges">Challenges</a></li>
+            <li><a href="#achievements">Achievements</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="hero-section section">
+        <div class="container hero-grid">
+          <div class="hero-content">
+            <p class="eyebrow">Adventure starts here</p>
+            <h1>Young Explorer &amp; Creative Kids Hub</h1>
+            <p class="hero-text">
+              Discover new ideas, unlock creativity, play fun games, and learn through exciting adventures every day.
+            </p>
+            <div class="hero-actions">
+              <a href="#explore" class="btn btn-primary">Start Exploring</a>
+              <a href="#games" class="btn btn-secondary">Play a Quiz</a>
+            </div>
+            <ul class="quick-stats" aria-label="Learning highlights">
+              <li><strong>100+</strong><span>Fun activities</span></li>
+              <li><strong>6</strong><span>Explore topics</span></li>
+              <li><strong>Daily</strong><span>Learning quests</span></li>
+            </ul>
+          </div>
+
+          <div class="hero-visual" aria-label="Illustration of a happy child learning and exploring">
+            <div class="hero-card main-illustration">
+              <div class="planet"></div>
+              <div class="rocket">🚀</div>
+              <div class="sparkle sparkle-one">✨</div>
+              <div class="sparkle sparkle-two">⭐</div>
+              <div class="book">📘</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container search-container">
+          <div class="search-panel info-card">
+            <label class="search-label" for="site-search">Search the hub</label>
+            <div class="search-input-wrap">
+              <span class="search-icon" aria-hidden="true">🔎</span>
+              <input
+                type="search"
+                id="site-search"
+                class="search-input"
+                placeholder="Try science, drawing, space, or quizzes..."
+                autocomplete="off"
+              />
+            </div>
+            <div class="search-results" id="search-results" aria-live="polite" hidden></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="explore" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Explore</p>
+            <h2>Discover amazing topics</h2>
+          </div>
+
+          <div class="card-grid explore-grid">
+            <article class="info-card topic-card">
+              <div class="card-icon">🔬</div>
+              <h3>Science</h3>
+              <p>Find out how the world works through experiments, ideas, and discoveries.</p>
+              <button type="button" class="text-link explore-btn" data-topic="science">Explore</button>
+            </article>
+
+            <article class="info-card topic-card">
+              <div class="card-icon">🐾</div>
+              <h3>Animals</h3>
+              <p>Meet amazing creatures and learn about habitats, food chains, and animal life.</p>
+              <button type="button" class="text-link explore-btn" data-topic="animals">Explore</button>
+            </article>
+
+            <article class="info-card topic-card">
+              <div class="card-icon">🚀</div>
+              <h3>Space</h3>
+              <p>Travel through the universe and explore planets, stars, and galaxies.</p>
+              <button type="button" class="text-link explore-btn" data-topic="space">Explore</button>
+            </article>
+
+            <article class="info-card topic-card">
+              <div class="card-icon">🌿</div>
+              <h3>Nature</h3>
+              <p>Learn about forests, oceans, weather, and how nature keeps our planet healthy.</p>
+              <button type="button" class="text-link explore-btn" data-topic="nature">Explore</button>
+            </article>
+
+            <article class="info-card topic-card">
+              <div class="card-icon">🏺</div>
+              <h3>History</h3>
+              <p>Journey into the past and discover stories, inventions, and important events.</p>
+              <button type="button" class="text-link explore-btn" data-topic="history">Explore</button>
+            </article>
+
+            <article class="info-card topic-card">
+              <div class="card-icon">🌍</div>
+              <h3>Geography</h3>
+              <p>Explore countries, landmarks, maps, and the places that make our world unique.</p>
+              <button type="button" class="text-link explore-btn" data-topic="geography">Explore</button>
+            </article>
+          </div>
+
+          <aside class="topic-detail-panel info-card" id="topic-detail" aria-live="polite" hidden>
+            <p class="topic-detail-label">Topic Spotlight</p>
+            <h3 id="topic-detail-title">Choose a topic</h3>
+            <p id="topic-detail-text">Select a category above to search for something new to learn.</p>
+            <form class="topic-search-form" id="topic-search-form">
+              <label class="topic-search-label" for="topic-search-input">Search <span id="selected-topic-label">this category</span></label>
+              <div class="topic-search-controls">
+                <input type="search" id="topic-search-input" class="topic-search-input" placeholder="Choose a category first..." autocomplete="off" disabled />
+                <button type="submit" class="btn btn-small btn-primary" id="topic-search-button" disabled>Search Topic</button>
+              </div>
+            </form>
+            <div class="topic-library-actions">
+              <button type="button" class="btn btn-small btn-secondary" id="discover-topic-button" disabled>✨ Discover Something New</button>
+            </div>
+            <div class="topic-search-status" id="topic-search-status" aria-live="polite"></div>
+            <div class="recent-searches" id="recent-searches" hidden>
+              <p class="topic-result-meta">Recent Searches</p>
+              <div class="recent-search-list" id="recent-search-list"></div>
+            </div>
+            <div class="topic-result" id="topic-result" hidden>
+              <div class="topic-result-content">
+                <p class="topic-result-meta" id="topic-result-meta"></p>
+                <h3 id="topic-result-title"></h3>
+                <p id="topic-result-explanation"></p>
+              </div>
+              <img class="topic-result-thumbnail" id="topic-result-thumbnail" alt="" hidden />
+              <div class="related-topics" id="related-topics" hidden>
+                <p class="topic-result-meta">Related Topics</p>
+                <div class="related-topic-list" id="related-topic-list"></div>
+              </div>
+              <a class="text-link" id="topic-result-link" href="#" target="_blank" rel="noreferrer">Read more</a>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="creative-corner" class="section section-alt">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Creative Corner</p>
+            <h2>Let your imagination shine</h2>
+          </div>
+
+          <div class="card-grid creative-grid">
+            <article class="info-card creative-card">
+              <div class="card-icon">🎨</div>
+              <h3>Drawing Ideas</h3>
+              <p>Sketch a magical garden, a friendly robot, or your dream space adventure.</p>
+              <button type="button" class="btn btn-small btn-primary creative-btn" data-activity="drawing">Try It!</button>
+            </article>
+
+            <article class="info-card creative-card">
+              <div class="card-icon">✍️</div>
+              <h3>Writing Activities</h3>
+              <p>Write a mini story about a brave explorer or a time-traveling animal.</p>
+              <button type="button" class="btn btn-small btn-primary creative-btn" data-activity="writing">Try It!</button>
+            </article>
+
+            <article class="info-card creative-card">
+              <div class="card-icon">🧩</div>
+              <h3>Craft Ideas</h3>
+              <p>Create paper planets, animal masks, or colorful recycled art projects.</p>
+              <button type="button" class="btn btn-small btn-primary creative-btn" data-activity="craft">Try It!</button>
+            </article>
+
+            <article class="info-card creative-card">
+              <div class="card-icon">🏆</div>
+              <h3>Creative Challenges</h3>
+              <p>Build a new invention or design a superhero with a special talent.</p>
+              <button type="button" class="btn btn-small btn-primary creative-btn" data-activity="challenge">Try It!</button>
+            </article>
+          </div>
+
+          <aside class="creative-detail-panel info-card" id="creative-detail" aria-live="polite" hidden>
+            <p class="creative-detail-label">Creative Spark</p>
+            <h3 id="creative-detail-title">Drawing Ideas</h3>
+            <p id="creative-detail-text">
+              Draw a magical city in the clouds with colorful homes, flying cars, and a rainbow sky.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <section id="games" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Games &amp; Quizzes</p>
+            <h2>Play and learn</h2>
+          </div>
+
+          <div class="quiz-panel info-card">
+            <div class="section-visual quiz-visual" aria-hidden="true">
+              <span class="quiz-visual-star">★</span>
+              <span class="quiz-visual-puzzle">🧩</span>
+              <span class="quiz-visual-book">📖</span>
+            </div>
+            <div class="quiz-header">
+              <span class="quiz-badge">Quiz Challenge</span>
+              <span class="score-pill">Score: <strong id="score-value">0</strong></span>
+            </div>
+
+            <div class="quiz-progress" id="quiz-progress">Preparing question 1 of 5...</div>
+            <h3 class="quiz-question" id="quiz-question">Loading a fresh question...</h3>
+
+            <div class="quiz-options" id="quiz-options" aria-label="Quiz answer choices">
+              <button type="button" class="quiz-option" data-index="0">Earth</button>
+              <button type="button" class="quiz-option" data-index="1">Mars</button>
+              <button type="button" class="quiz-option" data-index="2">Venus</button>
+              <button type="button" class="quiz-option" data-index="3">Jupiter</button>
+            </div>
+
+            <div class="quiz-feedback" id="quiz-feedback" aria-live="polite" aria-busy="true">
+              Finding a new question for you...
+            </div>
+
+            <div class="quiz-actions">
+              <button type="button" class="btn btn-primary" id="next-btn" hidden>Next Question</button>
+              <button type="button" class="btn btn-secondary" id="play-again-btn">Play Again</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="challenges" class="section section-alt">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Challenges</p>
+            <h2>Daily quests and missions</h2>
+          </div>
+
+          <div class="card-grid challenge-grid">
+            <article class="info-card challenge-card" data-challenge-id="nature-detective">
+              <div class="challenge-visual" aria-hidden="true">🌱</div>
+              <div class="challenge-topline">
+                <span class="challenge-tag easy">Easy</span>
+                <span class="points">+15 pts</span>
+              </div>
+              <h3>Nature Detective</h3>
+              <p>Find three plants or animals in your neighborhood and describe what makes them special.</p>
+              <button type="button" class="btn btn-small btn-primary challenge-complete-btn" data-challenge-id="nature-detective">Complete Challenge</button>
+            </article>
+
+            <article class="info-card challenge-card" data-challenge-id="mini-scientist">
+              <div class="challenge-visual" aria-hidden="true">🧪</div>
+              <div class="challenge-topline">
+                <span class="challenge-tag medium">Medium</span>
+                <span class="points">+15 pts</span>
+              </div>
+              <h3>Mini Scientist</h3>
+              <p>Design a simple experiment using everyday items and write down your observation.</p>
+              <button type="button" class="btn btn-small btn-primary challenge-complete-btn" data-challenge-id="mini-scientist">Complete Challenge</button>
+            </article>
+
+            <article class="info-card challenge-card" data-challenge-id="space-story-builder">
+              <div class="challenge-visual" aria-hidden="true">🪐</div>
+              <div class="challenge-topline">
+                <span class="challenge-tag hard">Hard</span>
+                <span class="points">+15 pts</span>
+              </div>
+              <h3>Space Story Builder</h3>
+              <p>Create a short story about a new planet, its people, and the adventures they explore.</p>
+              <button type="button" class="btn btn-small btn-primary challenge-complete-btn" data-challenge-id="space-story-builder">Complete Challenge</button>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="fun-facts" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Fun Facts</p>
+            <h2>Did you know?</h2>
+          </div>
+
+          <div class="fact-card info-card">
+            <div class="fact-icon" id="fact-icon" aria-hidden="true">🐾</div>
+            <p class="fact-category" id="fact-category">Animals</p>
+            <p class="fact-text" id="fact-text">
+              Octopuses have three hearts: two pump blood to the gills, and one pumps it to the rest of the body.
+            </p>
+            <button type="button" class="btn btn-primary" id="another-fact-btn">Show Another Fact</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="achievements" class="section section-alt">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Achievements</p>
+            <h2>Your progress and rewards</h2>
+          </div>
+
+          <div class="achievements-grid">
+            <div class="achievement-summary info-card">
+              <div class="achievement-visual" aria-hidden="true">⭐</div>
+              <h3>Total Points</h3>
+              <p class="big-number" id="total-points-value">0</p>
+            </div>
+
+            <div class="achievement-summary info-card">
+              <div class="achievement-visual" aria-hidden="true">🏅</div>
+              <h3>Badges Earned</h3>
+              <ul class="badge-list" id="badge-list" aria-live="polite"></ul>
+            </div>
+
+            <div class="achievement-summary info-card">
+              <div class="achievement-visual" aria-hidden="true">🗺️</div>
+              <h3>Progress</h3>
+              <ul class="stat-list">
+                <li>Quizzes completed: <strong id="quizzes-completed">0</strong></li>
+                <li>Challenges completed: <strong id="challenges-completed">0</strong></li>
+                <li>Activities completed: <strong id="activities-completed">0</strong></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <div>
+          <h3>Young Explorer &amp; Creative Kids Hub</h3>
+          <p>Learn, explore, create, and play every day.</p>
+        </div>
+        <nav aria-label="Footer navigation">
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#explore">Explore</a></li>
+            <li><a href="#games">Games</a></li>
+            <li><a href="#achievements">Achievements</a></li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="script.js?v=topic-explorer"></script>
+  </body>
+</html>
