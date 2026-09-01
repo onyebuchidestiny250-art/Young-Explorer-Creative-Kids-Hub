@@ -32,16 +32,67 @@
 
         <div class="nav-menu">
           <ul class="nav-list">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#explore">Explore</a></li>
-            <li><a href="#creative-corner">Creative Corner</a></li>
-            <li><a href="#games">Games &amp; Quizzes</a></li>
-            <li><a href="#challenges">Challenges</a></li>
-            <li><a href="#achievements">Achievements</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="explore.html">Explore</a></li>
+            <li><a href="creative.html">Creative Corner</a></li>
+            <li><a href="games.html">Games &amp; Quizzes</a></li>
+            <li><a href="challenges.html">Challenges</a></li>
+            <li><a href="achievements.html">Achievements</a></li>
           </ul>
         </div>
       </nav>
     </header>
+
+    <div class="profile-modal-backdrop" id="profile-modal-backdrop" hidden>
+      <div class="profile-modal" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
+        <div class="profile-modal-header">
+          <p class="eyebrow">Welcome, Explorer</p>
+          <h2 id="profile-modal-title">Create your learning profile</h2>
+        </div>
+
+        <form id="learner-profile-form" class="profile-form">
+          <label class="profile-field">
+            <span>👋 What is your name?</span>
+            <input type="text" id="profile-name" name="name" placeholder="Enter your name" required />
+          </label>
+
+          <label class="profile-field">
+            <span>🎂 How old are you?</span>
+            <input type="number" id="profile-age" name="age" min="4" max="25" placeholder="Optional" />
+          </label>
+
+          <label class="profile-field">
+            <span>🎓 What is your grade or class?</span>
+            <select id="profile-grade" name="grade" required>
+              <option value="">Choose your level</option>
+              <option value="Grade 1">Grade 1</option>
+              <option value="Grade 2">Grade 2</option>
+              <option value="Grade 3">Grade 3</option>
+              <option value="Grade 4">Grade 4</option>
+              <option value="Grade 5">Grade 5</option>
+              <option value="Grade 6">Grade 6</option>
+              <option value="7th Grade">7th Grade</option>
+              <option value="8th Grade">8th Grade</option>
+              <option value="9th Grade">9th Grade</option>
+              <option value="10th Grade">10th Grade</option>
+              <option value="11th Grade">11th Grade</option>
+              <option value="12th Grade">12th Grade</option>
+              <option value="JSS1">JSS1</option>
+              <option value="JSS2">JSS2</option>
+              <option value="JSS3">JSS3</option>
+              <option value="SS1">SS1</option>
+              <option value="SS2">SS2</option>
+              <option value="SS3">SS3</option>
+              <option value="Other (teacher/custom)">Other (teacher/custom)</option>
+            </select>
+          </label>
+
+          <div class="profile-actions">
+            <button type="submit" class="btn btn-primary">Continue Learning</button>
+          </div>
+        </form>
+      </div>
+    </div>
 
     <main>
       <section id="home" class="hero-section section">
@@ -56,6 +107,8 @@
               <a href="#explore" class="btn btn-primary">Start Exploring</a>
               <a href="#games" class="btn btn-secondary">Play a Quiz</a>
             </div>
+            <div class="profile-welcome" id="profile-welcome" hidden></div>
+            <button type="button" class="btn btn-small btn-secondary profile-edit-btn" id="edit-profile-btn" hidden>Edit My Profile</button>
             <ul class="quick-stats" aria-label="Learning highlights">
               <li><strong>100+</strong><span>Fun activities</span></li>
               <li><strong>6</strong><span>Explore topics</span></li>
@@ -77,16 +130,19 @@
         <div class="container search-container">
           <div class="search-panel info-card">
             <label class="search-label" for="site-search">Search the hub</label>
-            <div class="search-input-wrap">
-              <span class="search-icon" aria-hidden="true">🔎</span>
-              <input
-                type="search"
-                id="site-search"
-                class="search-input"
-                placeholder="Try science, drawing, space, or quizzes..."
-                autocomplete="off"
-              />
-            </div>
+            <form class="site-search-form" id="site-search-form">
+              <div class="search-input-wrap">
+                <span class="search-icon" aria-hidden="true">🔎</span>
+                <input
+                  type="search"
+                  id="site-search"
+                  class="search-input"
+                  placeholder="Try science, drawing, space, or quizzes..."
+                  autocomplete="off"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary site-search-button">Search</button>
+            </form>
             <div class="search-results" id="search-results" aria-live="polite" hidden></div>
           </div>
         </div>
@@ -179,6 +235,19 @@
         </div>
       </section>
 
+      <section id="learning-map" class="section section-alt">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Explorer Learning Map</p>
+            <h2>🗺️ Your learning journey</h2>
+          </div>
+
+          <div class="info-card learning-map-card">
+            <div class="learning-map-path" id="explorer-learning-map" aria-label="Explorer learning map"></div>
+          </div>
+        </div>
+      </section>
+
       <section id="creative-corner" class="section section-alt">
         <div class="container">
           <div class="section-heading">
@@ -244,69 +313,103 @@
               <span class="score-pill">Score: <strong id="score-value">0</strong></span>
             </div>
 
-            <div class="quiz-progress" id="quiz-progress">Preparing question 1 of 5...</div>
-            <h3 class="quiz-question" id="quiz-question">Loading a fresh question...</h3>
+            <div id="quiz-selection-panel" class="quiz-selection-panel" aria-live="polite"></div>
+            <div id="quiz-question-area" class="quiz-question-area" hidden>
+              <div class="quiz-timer" id="quiz-timer">⏱️ Time Left: --:--</div>
+              <div class="quiz-progress" id="quiz-progress">Preparing question 1 of 5...</div>
+              <h3 class="quiz-question" id="quiz-question">Loading a fresh question...</h3>
 
-            <div class="quiz-options" id="quiz-options" aria-label="Quiz answer choices">
-              <button type="button" class="quiz-option" data-index="0">Earth</button>
-              <button type="button" class="quiz-option" data-index="1">Mars</button>
-              <button type="button" class="quiz-option" data-index="2">Venus</button>
-              <button type="button" class="quiz-option" data-index="3">Jupiter</button>
-            </div>
+              <div class="quiz-options" id="quiz-options" aria-label="Quiz answer choices">
+                <button type="button" class="quiz-option" data-index="0">Earth</button>
+                <button type="button" class="quiz-option" data-index="1">Mars</button>
+                <button type="button" class="quiz-option" data-index="2">Venus</button>
+                <button type="button" class="quiz-option" data-index="3">Jupiter</button>
+              </div>
 
-            <div class="quiz-feedback" id="quiz-feedback" aria-live="polite" aria-busy="true">
-              Finding a new question for you...
-            </div>
+              <div class="quiz-feedback" id="quiz-feedback" aria-live="polite" aria-busy="true">
+                Finding a new question for you...
+              </div>
 
-            <div class="quiz-actions">
-              <button type="button" class="btn btn-primary" id="next-btn" hidden>Next Question</button>
-              <button type="button" class="btn btn-secondary" id="play-again-btn">Play Again</button>
+              <div class="quiz-actions">
+                <button type="button" class="btn btn-primary" id="next-btn" hidden>Next Question</button>
+                <button type="button" class="btn btn-secondary" id="play-again-btn">Try Again</button>
+              </div>
+              <div class="quiz-completion-actions" id="quiz-completion-actions" hidden></div>
             </div>
           </div>
         </div>
       </section>
 
       <section id="challenges" class="section section-alt">
-        <div class="container">
+        <div class="container challenge-page-wrap">
           <div class="section-heading">
             <p class="eyebrow">Challenges</p>
-            <h2>Daily quests and missions</h2>
+            <h2>Challenge Center</h2>
           </div>
 
-          <div class="card-grid challenge-grid">
-            <article class="info-card challenge-card" data-challenge-id="nature-detective">
-              <div class="challenge-visual" aria-hidden="true">🌱</div>
-              <div class="challenge-topline">
-                <span class="challenge-tag easy">Easy</span>
-                <span class="points">+15 pts</span>
+          <div class="today-challenge info-card">
+            <div class="today-challenge-header">
+              <div>
+                <p class="section-kicker">Today's Challenge</p>
+                <h3 id="today-challenge-title">Loading challenge...</h3>
               </div>
-              <h3>Nature Detective</h3>
-              <p>Find three plants or animals in your neighborhood and describe what makes them special.</p>
-              <button type="button" class="btn btn-small btn-primary challenge-complete-btn" data-challenge-id="nature-detective">Complete Challenge</button>
-            </article>
-
-            <article class="info-card challenge-card" data-challenge-id="mini-scientist">
-              <div class="challenge-visual" aria-hidden="true">🧪</div>
-              <div class="challenge-topline">
-                <span class="challenge-tag medium">Medium</span>
-                <span class="points">+15 pts</span>
-              </div>
-              <h3>Mini Scientist</h3>
-              <p>Design a simple experiment using everyday items and write down your observation.</p>
-              <button type="button" class="btn btn-small btn-primary challenge-complete-btn" data-challenge-id="mini-scientist">Complete Challenge</button>
-            </article>
-
-            <article class="info-card challenge-card" data-challenge-id="space-story-builder">
-              <div class="challenge-visual" aria-hidden="true">🪐</div>
-              <div class="challenge-topline">
-                <span class="challenge-tag hard">Hard</span>
-                <span class="points">+15 pts</span>
-              </div>
-              <h3>Space Story Builder</h3>
-              <p>Create a short story about a new planet, its people, and the adventures they explore.</p>
-              <button type="button" class="btn btn-small btn-primary challenge-complete-btn" data-challenge-id="space-story-builder">Complete Challenge</button>
-            </article>
+              <span id="today-challenge-date" class="today-date"></span>
+            </div>
+            <p id="today-challenge-description" class="today-challenge-description"></p>
+            <div class="today-challenge-meta">
+              <span id="today-challenge-category" class="challenge-category-pill"></span>
+              <span id="today-challenge-difficulty" class="challenge-difficulty-pill"></span>
+              <span id="today-challenge-points" class="challenge-points-pill"></span>
+            </div>
+            <button type="button" class="btn btn-primary" id="today-start-btn">Start Challenge</button>
           </div>
+
+          <div class="challenge-controls info-card">
+            <div class="challenge-filter-group" aria-label="Challenge categories">
+              <button type="button" class="challenge-filter-btn active" data-category="all">All Challenges</button>
+              <button type="button" class="challenge-filter-btn" data-category="brain">🧠 Brain</button>
+              <button type="button" class="challenge-filter-btn" data-category="science">🔬 Science</button>
+              <button type="button" class="challenge-filter-btn" data-category="explorer">🌍 Explorer</button>
+              <button type="button" class="challenge-filter-btn" data-category="creative">🎨 Creative</button>
+              <button type="button" class="challenge-filter-btn" data-category="coding">💻 Coding</button>
+            </div>
+          </div>
+
+          <div class="challenge-progress-panel info-card">
+            <div class="challenge-progress-header">
+              <p class="section-kicker">🎯 Challenge Progress</p>
+              <h3 id="challenge-progress-text">0 / 0 Challenges Completed</h3>
+            </div>
+            <div class="challenge-progress-bar" aria-label="Challenge completion progress">
+              <span id="challenge-progress-fill"></span>
+            </div>
+          </div>
+
+          <div class="card-grid challenge-grid" id="challenge-grid"></div>
+
+          <aside id="challenge-instructions-panel" class="challenge-instructions-panel info-card" hidden>
+            <div class="challenge-instructions-header">
+              <div>
+                <p class="section-kicker">Challenge Instructions</p>
+                <h3 id="challenge-instructions-title">Challenge title</h3>
+              </div>
+              <button type="button" class="btn btn-small btn-secondary" id="challenge-close-btn">Close</button>
+            </div>
+
+            <p id="challenge-instructions-description" class="challenge-instructions-description"></p>
+            <div class="today-challenge-meta">
+              <span id="challenge-instructions-category" class="challenge-category-pill"></span>
+              <span id="challenge-instructions-difficulty" class="challenge-difficulty-pill"></span>
+              <span id="challenge-instructions-points" class="challenge-points-pill"></span>
+            </div>
+
+            <div class="challenge-goal-box">
+              <h4>What you need to do</h4>
+              <ul id="challenge-instructions-list"></ul>
+            </div>
+
+            <button type="button" class="btn btn-primary" id="complete-started-challenge-btn">Complete Challenge</button>
+          </aside>
         </div>
       </section>
 
@@ -335,7 +438,7 @@
             <h2>Your progress and rewards</h2>
           </div>
 
-          <div class="achievements-grid">
+          <div class="achievement-dashboard">
             <div class="achievement-summary info-card">
               <div class="achievement-visual" aria-hidden="true">⭐</div>
               <h3>Total Points</h3>
@@ -345,19 +448,85 @@
             <div class="achievement-summary info-card">
               <div class="achievement-visual" aria-hidden="true">🏅</div>
               <h3>Badges Earned</h3>
-              <ul class="badge-list" id="badge-list" aria-live="polite"></ul>
+              <p class="big-number small-number" id="badge-count-value">0</p>
             </div>
 
             <div class="achievement-summary info-card">
-              <div class="achievement-visual" aria-hidden="true">🗺️</div>
-              <h3>Progress</h3>
-              <ul class="stat-list">
-                <li>Quizzes completed: <strong id="quizzes-completed">0</strong></li>
-                <li>Challenges completed: <strong id="challenges-completed">0</strong></li>
-                <li>Activities completed: <strong id="activities-completed">0</strong></li>
-              </ul>
+              <div class="achievement-visual" aria-hidden="true">🧠</div>
+              <h3>Quizzes Completed</h3>
+              <p class="big-number small-number" id="quizzes-completed">0</p>
+            </div>
+
+            <div class="achievement-summary info-card">
+              <div class="achievement-visual" aria-hidden="true">🎯</div>
+              <h3>Challenges Completed</h3>
+              <p class="big-number small-number" id="challenges-completed">0</p>
+            </div>
+
+            <div class="achievement-summary info-card">
+              <div class="achievement-visual" aria-hidden="true">🔎</div>
+              <h3>Topics Explored</h3>
+              <p class="big-number small-number" id="topics-explored-value">0</p>
+            </div>
+
+            <div class="achievement-summary info-card">
+              <div class="achievement-visual" aria-hidden="true">🎨</div>
+              <h3>Creative Activities</h3>
+              <p class="big-number small-number" id="activities-completed">0</p>
             </div>
           </div>
+
+          <div class="achievement-progress-panel info-card">
+            <div class="achievement-progress-header">
+              <div>
+                <p class="section-kicker">Next Goal</p>
+                <h3 id="next-achievement-name">Curious Mind</h3>
+              </div>
+              <span id="next-achievement-progress-text">0 / 50 points</span>
+            </div>
+            <div class="achievement-progress-bar" aria-label="Progress toward next achievement">
+              <span id="next-achievement-progress-fill"></span>
+            </div>
+            <p id="next-achievement-detail" class="achievement-progress-detail">Keep exploring to unlock your next badge.</p>
+          </div>
+
+          <div class="achievement-collection-grid">
+            <div class="badge-collection-panel info-card">
+              <div class="section-subheading">🏆 Unlocked Badges</div>
+              <div id="unlocked-badge-list" class="badge-collection-grid" aria-live="polite"></div>
+            </div>
+
+            <div class="badge-collection-panel info-card">
+              <div class="section-subheading">🔒 Locked Badges</div>
+              <div id="locked-badge-list" class="badge-collection-grid" aria-live="polite"></div>
+            </div>
+          </div>
+
+          <div class="achievement-lower-grid">
+            <div class="journey-panel info-card">
+              <div class="section-subheading">🌟 Explorer Journey</div>
+              <div id="explorer-journey" class="explorer-journey"></div>
+            </div>
+
+            <div class="streak-panel info-card">
+              <div class="section-subheading">🔥 Learning Streak</div>
+              <div id="learning-streak-value" class="streak-value">0-Day Learning Streak</div>
+              <p id="streak-note" class="streak-note">Keep exploring to build your streak.</p>
+            </div>
+          </div>
+
+          <div class="stats-panel info-card">
+            <div class="section-subheading">📊 Activity Statistics</div>
+            <ul class="stat-list">
+              <li>📚 Quizzes Completed: <strong id="stat-quizzes-completed">0</strong></li>
+              <li>🎯 Challenges Completed: <strong id="stat-challenges-completed">0</strong></li>
+              <li>🔎 Topics Explored: <strong id="stat-topics-explored">0</strong></li>
+              <li>🎨 Creative Activities: <strong id="stat-activities-completed">0</strong></li>
+              <li>⭐ Total Points: <strong id="stat-total-points">0</strong></li>
+            </ul>
+          </div>
+
+          <div id="achievement-celebration" class="achievement-celebration" hidden aria-live="polite"></div>
         </div>
       </section>
     </main>
@@ -370,15 +539,18 @@
         </div>
         <nav aria-label="Footer navigation">
           <ul class="footer-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#explore">Explore</a></li>
-            <li><a href="#games">Games</a></li>
-            <li><a href="#achievements">Achievements</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="explore.html">Explore</a></li>
+            <li><a href="creative.html">Creative Corner</a></li>
+            <li><a href="games.html">Games</a></li>
+            <li><a href="challenges.html">Challenges</a></li>
+            <li><a href="achievements.html">Achievements</a></li>
           </ul>
         </nav>
       </div>
     </footer>
 
+    <script src="data/site-data.js"></script>
     <script src="script.js?v=topic-explorer"></script>
   </body>
 </html>

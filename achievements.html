@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Track your points, badges, streak, and achievement journey across the site."
+    />
+    <title>Achievements | Young Explorer & Creative Kids Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css?v=motion" />
+  </head>
+  <body data-page="achievements">
+    <header class="site-header">
+      <nav class="navbar container" aria-label="Main navigation">
+        <a href="index.html" class="brand" aria-label="Young Explorer & Creative Kids Hub home">
+          <span class="brand-mark">Y</span>
+          <span>Young Explorer</span>
+        </a>
+
+        <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="nav-menu">
+          <ul class="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="explore.html">Explore</a></li>
+            <li><a href="creative.html">Creative Corner</a></li>
+            <li><a href="games.html">Games &amp; Quizzes</a></li>
+            <li><a href="challenges.html">Challenges</a></li>
+            <li><a href="achievements.html">Achievements</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section id="achievements" class="section section-alt">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Achievements</p>
+            <h2>Your progress and rewards</h2>
+          </div>
+
+          <div class="achievement-dashboard">
+            <div class="achievement-summary info-card">
+              <div class="achievement-visual" aria-hidden="true">⭐</div>
+              <h3>Total Points</h3>
+              <p class="big-number" id="total-points-value">0</p>
+            </div>
+
+            <div class="achievement-summary info-card">
+              <div class="achievement-visual" aria-hidden="true">🏅</div>
+              <h3>Badges Earned</h3>
+              <p class="big-number small-number" id="badge-count-value">0</p>
+            </div>
+
+            <div class="achievement-summary info-card">
+              <div class="achievement-visual" aria-hidden="true">🧠</div>
+              <h3>Quizzes Completed</h3>
+              <p class="big-number small-number" id="quizzes-completed">0</p>
+            </div>
+
+            <div class="achievement-summary info-card">
+              <div class="achievement-visual" aria-hidden="true">🎯</div>
+              <h3>Challenges Completed</h3>
+              <p class="big-number small-number" id="challenges-completed">0</p>
+            </div>
+
+            <div class="achievement-summary info-card">
+              <div class="achievement-visual" aria-hidden="true">🔎</div>
+              <h3>Topics Explored</h3>
+              <p class="big-number small-number" id="topics-explored-value">0</p>
+            </div>
+
+            <div class="achievement-summary info-card">
+              <div class="achievement-visual" aria-hidden="true">🎨</div>
+              <h3>Creative Activities</h3>
+              <p class="big-number small-number" id="activities-completed">0</p>
+            </div>
+          </div>
+
+          <div class="achievement-progress-panel info-card">
+            <div class="achievement-progress-header">
+              <div>
+                <p class="section-kicker">Next Goal</p>
+                <h3 id="next-achievement-name">Curious Mind</h3>
+              </div>
+              <span id="next-achievement-progress-text">0 / 50 points</span>
+            </div>
+            <div class="achievement-progress-bar" aria-label="Progress toward next achievement">
+              <span id="next-achievement-progress-fill"></span>
+            </div>
+            <p id="next-achievement-detail" class="achievement-progress-detail">Keep exploring to unlock your next badge.</p>
+          </div>
+
+          <div class="achievement-collection-grid">
+            <div class="badge-collection-panel info-card">
+              <div class="section-subheading">🏆 Unlocked Badges</div>
+              <div id="unlocked-badge-list" class="badge-collection-grid" aria-live="polite"></div>
+            </div>
+
+            <div class="badge-collection-panel info-card">
+              <div class="section-subheading">🔒 Locked Badges</div>
+              <div id="locked-badge-list" class="badge-collection-grid" aria-live="polite"></div>
+            </div>
+          </div>
+
+          <div class="achievement-lower-grid">
+            <div class="journey-panel info-card">
+              <div class="section-subheading">🌟 Explorer Journey</div>
+              <div id="explorer-journey" class="explorer-journey"></div>
+            </div>
+
+            <div class="streak-panel info-card">
+              <div class="section-subheading">🔥 Learning Streak</div>
+              <div id="learning-streak-value" class="streak-value">0-Day Learning Streak</div>
+              <p id="streak-note" class="streak-note">Keep exploring to build your streak.</p>
+            </div>
+          </div>
+
+          <div class="stats-panel info-card">
+            <div class="section-subheading">📊 Activity Statistics</div>
+            <ul class="stat-list">
+              <li>📚 Quizzes Completed: <strong id="stat-quizzes-completed">0</strong></li>
+              <li>🎯 Challenges Completed: <strong id="stat-challenges-completed">0</strong></li>
+              <li>🔎 Topics Explored: <strong id="stat-topics-explored">0</strong></li>
+              <li>🎨 Creative Activities: <strong id="stat-activities-completed">0</strong></li>
+              <li>⭐ Total Points: <strong id="stat-total-points">0</strong></li>
+            </ul>
+          </div>
+
+          <div id="achievement-celebration" class="achievement-celebration" hidden aria-live="polite"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <h3>Young Explorer &amp; Creative Kids Hub</h3>
+          <p>Learn, explore, create, and play every day.</p>
+        </div>
+        <nav aria-label="Footer navigation">
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="explore.html">Explore</a></li>
+            <li><a href="creative.html">Creative Corner</a></li>
+            <li><a href="games.html">Games &amp; Quizzes</a></li>
+            <li><a href="challenges.html">Challenges</a></li>
+            <li><a href="achievements.html">Achievements</a></li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="data/site-data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

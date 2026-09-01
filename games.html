@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Play educational quizzes and build knowledge with fun trivia challenges."
+    />
+    <title>Games & Quizzes | Young Explorer & Creative Kids Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css?v=motion" />
+  </head>
+  <body data-page="games">
+    <header class="site-header">
+      <nav class="navbar container" aria-label="Main navigation">
+        <a href="index.html" class="brand" aria-label="Young Explorer & Creative Kids Hub home">
+          <span class="brand-mark">Y</span>
+          <span>Young Explorer</span>
+        </a>
+
+        <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="nav-menu">
+          <ul class="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="explore.html">Explore</a></li>
+            <li><a href="creative.html">Creative Corner</a></li>
+            <li><a href="games.html">Games &amp; Quizzes</a></li>
+            <li><a href="challenges.html">Challenges</a></li>
+            <li><a href="achievements.html">Achievements</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section id="games" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Games &amp; Quizzes</p>
+            <h2>Play and learn</h2>
+          </div>
+
+          <div class="quiz-panel info-card">
+            <div class="section-visual quiz-visual" aria-hidden="true">
+              <span class="quiz-visual-star">★</span>
+              <span class="quiz-visual-puzzle">🧩</span>
+              <span class="quiz-visual-book">📖</span>
+            </div>
+            <div class="quiz-header">
+              <span class="quiz-badge">Quiz Challenge</span>
+              <span class="score-pill">Score: <strong id="score-value">0</strong></span>
+            </div>
+
+            <div id="quiz-selection-panel" class="quiz-selection-panel" aria-live="polite"></div>
+            <div id="quiz-question-area" class="quiz-question-area" hidden>
+              <div class="quiz-timer" id="quiz-timer">⏱️ Time Left: --:--</div>
+              <div class="quiz-progress" id="quiz-progress">Preparing question 1 of 5...</div>
+              <h3 class="quiz-question" id="quiz-question">Loading a fresh question...</h3>
+
+              <div class="quiz-options" id="quiz-options" aria-label="Quiz answer choices">
+                <button type="button" class="quiz-option" data-index="0">Earth</button>
+                <button type="button" class="quiz-option" data-index="1">Mars</button>
+                <button type="button" class="quiz-option" data-index="2">Venus</button>
+                <button type="button" class="quiz-option" data-index="3">Jupiter</button>
+              </div>
+
+              <div class="quiz-feedback" id="quiz-feedback" aria-live="polite" aria-busy="true">
+                Finding a new question for you...
+              </div>
+
+              <div class="quiz-actions">
+                <button type="button" class="btn btn-primary" id="next-btn" hidden>Next Question</button>
+                <button type="button" class="btn btn-secondary" id="play-again-btn">Try Again</button>
+              </div>
+              <div class="quiz-completion-actions" id="quiz-completion-actions" hidden></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <h3>Young Explorer &amp; Creative Kids Hub</h3>
+          <p>Learn, explore, create, and play every day.</p>
+        </div>
+        <nav aria-label="Footer navigation">
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="explore.html">Explore</a></li>
+            <li><a href="creative.html">Creative Corner</a></li>
+            <li><a href="games.html">Games &amp; Quizzes</a></li>
+            <li><a href="challenges.html">Challenges</a></li>
+            <li><a href="achievements.html">Achievements</a></li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="data/site-data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

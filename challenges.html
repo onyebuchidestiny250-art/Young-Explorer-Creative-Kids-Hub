@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Daily challenges for nature, experiments, and creative storytelling adventures."
+    />
+    <title>Challenges | Young Explorer & Creative Kids Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css?v=motion" />
+  </head>
+  <body data-page="challenges">
+    <header class="site-header">
+      <nav class="navbar container" aria-label="Main navigation">
+        <a href="index.html" class="brand" aria-label="Young Explorer & Creative Kids Hub home">
+          <span class="brand-mark">Y</span>
+          <span>Young Explorer</span>
+        </a>
+
+        <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="nav-menu">
+          <ul class="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="explore.html">Explore</a></li>
+            <li><a href="creative.html">Creative Corner</a></li>
+            <li><a href="games.html">Games &amp; Quizzes</a></li>
+            <li><a href="challenges.html">Challenges</a></li>
+            <li><a href="achievements.html">Achievements</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section id="challenges" class="section section-alt">
+        <div class="container challenge-page-wrap">
+          <div class="section-heading">
+            <p class="eyebrow">Challenges</p>
+            <h2>Challenge Center</h2>
+          </div>
+
+          <div class="today-challenge info-card">
+            <div class="today-challenge-header">
+              <div>
+                <p class="section-kicker">Today's Challenge</p>
+                <h3 id="today-challenge-title">Loading challenge...</h3>
+              </div>
+              <span id="today-challenge-date" class="today-date"></span>
+            </div>
+            <p id="today-challenge-description" class="today-challenge-description"></p>
+            <div class="today-challenge-meta">
+              <span id="today-challenge-category" class="challenge-category-pill"></span>
+              <span id="today-challenge-difficulty" class="challenge-difficulty-pill"></span>
+              <span id="today-challenge-points" class="challenge-points-pill"></span>
+            </div>
+            <button type="button" class="btn btn-primary" id="today-start-btn">Start Challenge</button>
+          </div>
+
+          <div class="challenge-controls info-card">
+            <div class="challenge-filter-group" aria-label="Challenge categories">
+              <button type="button" class="challenge-filter-btn active" data-category="all">All Challenges</button>
+              <button type="button" class="challenge-filter-btn" data-category="brain">🧠 Brain</button>
+              <button type="button" class="challenge-filter-btn" data-category="science">🔬 Science</button>
+              <button type="button" class="challenge-filter-btn" data-category="explorer">🌍 Explorer</button>
+              <button type="button" class="challenge-filter-btn" data-category="creative">🎨 Creative</button>
+              <button type="button" class="challenge-filter-btn" data-category="coding">💻 Coding</button>
+            </div>
+          </div>
+
+          <div class="challenge-progress-panel info-card">
+            <div class="challenge-progress-header">
+              <p class="section-kicker">🎯 Challenge Progress</p>
+              <h3 id="challenge-progress-text">0 / 0 Challenges Completed</h3>
+            </div>
+            <div class="challenge-progress-bar" aria-label="Challenge completion progress">
+              <span id="challenge-progress-fill"></span>
+            </div>
+          </div>
+
+          <div class="card-grid challenge-grid" id="challenge-grid"></div>
+
+          <aside id="challenge-instructions-panel" class="challenge-instructions-panel info-card" hidden>
+            <div class="challenge-instructions-header">
+              <div>
+                <p class="section-kicker">Challenge Instructions</p>
+                <h3 id="challenge-instructions-title">Challenge title</h3>
+              </div>
+              <button type="button" class="btn btn-small btn-secondary" id="challenge-close-btn">Close</button>
+            </div>
+
+            <p id="challenge-instructions-description" class="challenge-instructions-description"></p>
+            <div class="today-challenge-meta">
+              <span id="challenge-instructions-category" class="challenge-category-pill"></span>
+              <span id="challenge-instructions-difficulty" class="challenge-difficulty-pill"></span>
+              <span id="challenge-instructions-points" class="challenge-points-pill"></span>
+            </div>
+
+            <div class="challenge-goal-box">
+              <h4>What you need to do</h4>
+              <ul id="challenge-instructions-list"></ul>
+            </div>
+
+            <button type="button" class="btn btn-primary" id="complete-started-challenge-btn">Complete Challenge</button>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <h3>Young Explorer &amp; Creative Kids Hub</h3>
+          <p>Learn, explore, create, and play every day.</p>
+        </div>
+        <nav aria-label="Footer navigation">
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="explore.html">Explore</a></li>
+            <li><a href="creative.html">Creative Corner</a></li>
+            <li><a href="games.html">Games &amp; Quizzes</a></li>
+            <li><a href="challenges.html">Challenges</a></li>
+            <li><a href="achievements.html">Achievements</a></li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="data/site-data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
