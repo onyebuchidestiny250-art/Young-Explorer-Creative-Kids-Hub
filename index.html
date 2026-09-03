@@ -900,6 +900,60 @@
       </section>
     </main>
 
+    <!-- Explorer Buddy Chat -->
+<div class="explorer-buddy" id="explorer-buddy">
+  <button
+    type="button"
+    class="explorer-buddy-toggle"
+    id="explorer-buddy-toggle"
+    aria-label="Open Explorer Buddy"
+  >
+    💬
+  </button>
+
+  <div class="explorer-buddy-window" id="explorer-buddy-window" hidden>
+    <div class="explorer-buddy-header">
+      <div>
+        <strong>Explorer Buddy</strong>
+        <span>Your learning helper</span>
+      </div>
+
+      <button
+        type="button"
+        class="explorer-buddy-close"
+        id="explorer-buddy-close"
+        aria-label="Close Explorer Buddy"
+      >
+        ×
+      </button>
+    </div>
+
+    <div class="explorer-buddy-messages" id="explorer-buddy-messages">
+      <div class="explorer-buddy-message bot">
+        Hi, Explorer! 👋<br>
+        Ask me anything! Science, math, coding, history, space, creativity, and more.
+      </div>
+    </div>
+
+    <div class="explorer-buddy-input-area">
+      <input
+        type="text"
+        id="explorer-buddy-input"
+        placeholder="Ask me anything..."
+        autocomplete="off"
+      />
+
+      <button
+        type="button"
+        id="explorer-buddy-send"
+        class="btn btn-small btn-primary"
+      >
+        Send
+      </button>
+    </div>
+  </div>
+</div>
+
     <footer class="site-footer">
       <div class="container footer-content">
         <div>
@@ -920,6 +974,6 @@
     </footer>
 
     <script src="data/site-data.js"></script>
-    <script src="script.js?v=topic-explorer"></script>
+    <script src="script.js?v=ai-buddy-v1"></script>
   </body>
 </html>

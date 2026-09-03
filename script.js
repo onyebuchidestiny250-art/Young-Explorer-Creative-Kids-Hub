@@ -3217,3 +3217,177 @@ const continuePaint = (event) => {
     }
   });
 });
+
+// =========================
+// Explorer Buddy Chat
+// =========================
+
+const buddyToggle = document.getElementById("explorer-buddy-toggle");
+const buddyWindow = document.getElementById("explorer-buddy-window");
+const buddyClose = document.getElementById("explorer-buddy-close");
+
+if (buddyToggle && buddyWindow && buddyClose) {
+  buddyToggle.addEventListener("click", () => {
+    buddyWindow.hidden = false;
+    buddyInput?.focus();
+  });
+
+  buddyClose.addEventListener("click", () => {
+    buddyWindow.hidden = true;
+  });
+}
+
+// =========================
+// Explorer Buddy AI Chat
+// =========================
+
+const buddyInput = document.getElementById("explorer-buddy-input");
+const buddySend = document.getElementById("explorer-buddy-send");
+const buddyMessages = document.getElementById("explorer-buddy-messages");
+
+// Keep a short conversation history so Buddy can understand follow-up questions.
+const buddyConversation = [];
+const MAX_BUDDY_HISTORY = 12;
+
+const addBuddyMessage = (message, type) => {
+  if (!buddyMessages) return;
+
+  const bubble = document.createElement("div");
+  bubble.className = `explorer-buddy-message ${type}`;
+  bubble.textContent = message;
+  buddyMessages.appendChild(bubble);
+  buddyMessages.scrollTop = buddyMessages.scrollHeight;
+};
+
+const setBuddyBusy = (isBusy) => {
+  if (!buddySend || !buddyInput) return;
+
+  buddySend.disabled = isBusy;
+  buddyInput.disabled = isBusy;
+  buddySend.textContent = isBusy ? "Thinking..." : "Send";
+};
+
+const buddyKnowledge = [
+  { keys: ["mammal", "mammals"], reply: "Mammals are animals that usually have hair or fur and feed their young with milk. Humans, elephants, whales, and dolphins are mammals. 🐘" },
+  { keys: ["bird", "birds"], reply: "Birds are animals with feathers, wings, and beaks. Most birds can fly, although some, such as penguins, cannot. 🐦" },
+  { keys: ["ocean animal", "ocean animals"], reply: "Ocean animals live in marine environments. Whales, sharks, octopuses, and sea turtles are examples. 🌊" },
+  { keys: ["insect", "insects"], reply: "Insects have six legs and three main body sections. Butterflies, ants, bees, and beetles are examples. 🦋" },
+  { keys: ["endangered animal", "endangered animals"], reply: "Endangered animals are species that face a high risk of disappearing from the wild. Protecting their habitats can help them survive. 🐼" },
+  { keys: ["human body", "human body systems"], reply: "The human body is made of many systems that work together, including the digestive, respiratory, circulatory, and nervous systems. 🧠" },
+  { keys: ["plant", "plants"], reply: "Plants use sunlight, water, and carbon dioxide to make their own food through photosynthesis. 🌱" },
+  { keys: ["photosynthesis"], reply: "Photosynthesis is the process plants use to make food using light energy, water, and carbon dioxide. 🌱☀️" },
+  { keys: ["energy"], reply: "Energy is the ability to do work or cause change. It can take many forms, including heat, light, sound, movement, and stored energy. ⚡" },
+  { keys: ["weather"], reply: "Weather describes the conditions in the atmosphere at a particular time and place, such as temperature, rain, wind, and clouds. ☁️" },
+  { keys: ["simple machine", "simple machines"], reply: "Simple machines help make work easier by changing the size or direction of a force. Examples include levers, pulleys, and wheels. ⚙️" },
+  { keys: ["planet", "planets"], reply: "There are eight planets in our Solar System. They orbit the Sun, which is our star. 🪐" },
+  { keys: ["star", "stars"], reply: "Stars are huge, extremely hot balls of gas that produce their own light and energy. The Sun is the closest star to Earth. ⭐" },
+  { keys: ["moon", "the moon"], reply: "The Moon is Earth's natural satellite. It reflects sunlight and orbits Earth in about 27.3 days. 🌙" },
+  { keys: ["galaxy", "galaxies"], reply: "A galaxy is a huge collection of stars, gas, dust, and other objects held together by gravity. 🌌" },
+  { keys: ["space exploration"], reply: "Space exploration uses spacecraft, satellites, robots, and other technology to learn more about space. 🚀" },
+  { keys: ["ecosystem", "ecosystems"], reply: "An ecosystem includes living things and the non-living parts of their environment interacting with one another. 🌿" },
+  { keys: ["rainforest", "rainforests"], reply: "Rainforests are warm, wet environments that contain many different species of plants and animals. 🌴" },
+  { keys: ["ocean", "oceans"], reply: "Oceans cover most of Earth's surface and are home to an enormous variety of life. 🌊" },
+  { keys: ["mountain", "mountains"], reply: "Mountains are large areas of land that rise high above the surrounding landscape. 🏔️" },
+  { keys: ["natural wonder", "natural wonders"], reply: "Natural wonders are remarkable features formed by nature, such as waterfalls, canyons, and unusual rock formations. 🌎" },
+  { keys: ["ancient civilization", "ancient civilizations"], reply: "Ancient civilizations were early organized societies that developed cities, governments, technologies, cultures, and writing systems. 🏛️" },
+  { keys: ["famous inventor", "famous inventors"], reply: "Inventors create or develop new devices, tools, or methods that can solve problems or make tasks easier. 💡" },
+  { keys: ["important discovery", "important discoveries"], reply: "Discoveries help people learn about things that already exist, such as new species, scientific principles, or places. 🔎" },
+  { keys: ["historical place", "historical places"], reply: "Historical places are locations connected to important people, cultures, or events from the past. 🏛️" },
+  { keys: ["historical figure", "historical figures"], reply: "Historical figures are people from the past whose actions, ideas, or achievements had an important effect on history. 📜" },
+  { keys: ["continent", "continents"], reply: "Earth has seven continents: Africa, Antarctica, Asia, Europe, North America, Australia, and South America. 🌍" },
+  { keys: ["country", "countries"], reply: "Countries are areas with their own governments and borders. There are many countries across the world's continents. 🗺️" },
+  { keys: ["river", "rivers"], reply: "Rivers are flowing bodies of water that usually move toward a lake, sea, ocean, or another river. 💧" },
+  { keys: ["mitosis"], reply: "Mitosis is a type of cell division in which one cell divides to form two genetically similar daughter cells. It helps organisms grow and replace or repair cells. 🧬" }
+];
+
+const getBuddyKnowledgeReply = (question) => {
+  const text = question.toLowerCase();
+  const match = buddyKnowledge.find((entry) => entry.keys.some((key) => text.includes(key)));
+  return match ? match.reply : null;
+};
+
+const askExplorerBuddyAI = async (question) => {
+  const builtInReply = getBuddyKnowledgeReply(question);
+  if (builtInReply) return builtInReply;
+
+  const response = await fetch("/api/chat", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      message: question,
+      history: buddyConversation.slice(-MAX_BUDDY_HISTORY)
+    })
+  });
+
+  let data = {};
+  try {
+    data = await response.json();
+  } catch (error) {
+    data = {};
+  }
+
+  if (!response.ok) {
+    throw new Error(data.error || "Explorer Buddy could not answer right now.");
+  }
+
+  if (!data.reply) {
+    throw new Error("Explorer Buddy received an empty answer.");
+  }
+
+  return data.reply;
+};
+
+const sendBuddyMessage = async () => {
+  if (!buddyInput || !buddyMessages || buddySend?.disabled) return;
+
+  const question = buddyInput.value.trim();
+  if (!question) return;
+
+  addBuddyMessage(question, "user");
+  buddyInput.value = "";
+  buddyConversation.push({ role: "user", content: question });
+
+  setBuddyBusy(true);
+
+  const thinkingMessage = document.createElement("div");
+  thinkingMessage.className = "explorer-buddy-message bot";
+  thinkingMessage.textContent = "🤔 Thinking...";
+  buddyMessages.appendChild(thinkingMessage);
+  buddyMessages.scrollTop = buddyMessages.scrollHeight;
+
+  try {
+    const response = await askExplorerBuddyAI(question);
+    thinkingMessage.remove();
+    addBuddyMessage(response, "bot");
+    buddyConversation.push({ role: "assistant", content: response });
+
+    while (buddyConversation.length > MAX_BUDDY_HISTORY) {
+      buddyConversation.shift();
+    }
+  } catch (error) {
+    thinkingMessage.remove();
+    addBuddyMessage(
+      error.message || "Sorry, Explorer Buddy could not answer right now. Please try again.",
+      "bot"
+    );
+
+    // Remove the unanswered user turn so a temporary API failure does not pollute the next request.
+    buddyConversation.pop();
+  } finally {
+    setBuddyBusy(false);
+    buddyInput.focus();
+  }
+};
+
+if (buddySend && buddyInput && buddyMessages) {
+  buddySend.addEventListener("click", sendBuddyMessage);
+
+  buddyInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      sendBuddyMessage();
+    }
+  });
+}
