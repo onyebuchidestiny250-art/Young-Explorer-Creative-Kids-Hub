@@ -2209,29 +2209,108 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  if (currentPage === "creative") {
-    const creativeWorkspace = document.getElementById("creative-workspace");
-    const creativeWorkspaceTitle = document.getElementById("creative-workspace-title");
-    const creativeWorkspaceLabel = document.getElementById("creative-workspace-label");
-    const creativeEmptyState = document.getElementById("creative-empty-state");
-    const drawingWorkspace = document.getElementById("drawing-workspace");
-    const writingWorkspace = document.getElementById("writing-workspace");
-    const craftWorkspace = document.getElementById("craft-workspace");
-    const challengeWorkspace = document.getElementById("challenge-workspace");
-    const closeCreativeWorkspaceButton = document.getElementById("creative-close-workspace");
-    const creativeActivityMeta = document.getElementById("creative-activity-meta");
-    const creativeActivityLibrary = Array.isArray(sharedSiteData.creativeActivityLibrary)
-      ? sharedSiteData.creativeActivityLibrary
-      : [];
-    const CREATIVE_ACTIVITY_HISTORY_KEY = "youngExplorerCreativeActivityHistory";
-    const CREATIVE_ACTIVITY_ASSIGNMENTS_KEY = "youngExplorerCreativeActivityAssignments";
-    const activityCategories = {
-      drawing: ["Drawing", "Creative Challenges", "Design", "Invention", "Science Creativity", "Technology Creativity", "Nature Creativity", "Problem Solving"],
-      writing: ["Writing", "Storytelling", "Creative Challenges", "Design", "Invention", "Science Creativity", "Technology Creativity", "Nature Creativity", "Problem Solving"],
-      craft: ["Crafts", "Drawing", "Creative Challenges", "Design", "Invention", "Science Creativity", "Technology Creativity", "Nature Creativity", "Problem Solving"],
-      challenge: ["Drawing", "Writing", "Crafts", "Creative Challenges", "Design", "Invention", "Storytelling", "Science Creativity", "Technology Creativity", "Nature Creativity", "Problem Solving"]
-    };
-    const activeCreativeActivities = {};
+  const creativeWorkspace = document.getElementById("creative-workspace");
+  const creativeWorkspaceTitle = document.getElementById("creative-workspace-title");
+  const creativeWorkspaceLabel = document.getElementById("creative-workspace-label");
+  const creativeEmptyState = document.getElementById("creative-empty-state");
+  const drawingWorkspace = document.getElementById("drawing-workspace");
+  const writingWorkspace = document.getElementById("writing-workspace");
+  const craftWorkspace = document.getElementById("craft-workspace");
+  const challengeWorkspace = document.getElementById("challenge-workspace");
+  const closeCreativeWorkspaceButton = document.getElementById("creative-close-workspace");
+  const creativeActivityMeta = document.getElementById("creative-activity-meta");
+  const creativeActivityLibrary = Array.isArray(sharedSiteData.creativeActivityLibrary)
+    ? sharedSiteData.creativeActivityLibrary
+    : [];
+  const CREATIVE_ACTIVITY_HISTORY_KEY = "youngExplorerCreativeActivityHistory";
+  const CREATIVE_ACTIVITY_ASSIGNMENTS_KEY = "youngExplorerCreativeActivityAssignments";
+  const activityCategories = {
+    drawing: ["Drawing", "Creative Challenges", "Design", "Invention", "Science Creativity", "Technology Creativity", "Nature Creativity", "Problem Solving"],
+    writing: ["Writing", "Storytelling", "Creative Challenges", "Design", "Invention", "Science Creativity", "Technology Creativity", "Nature Creativity", "Problem Solving"],
+    craft: ["Crafts", "Drawing", "Creative Challenges", "Design", "Invention", "Science Creativity", "Technology Creativity", "Nature Creativity", "Problem Solving"],
+    challenge: ["Drawing", "Writing", "Crafts", "Creative Challenges", "Design", "Invention", "Storytelling", "Science Creativity", "Technology Creativity", "Nature Creativity", "Problem Solving"]
+  };
+  const activeCreativeActivities = {};
+
+  const openCreativeWorkspace = (activityKey) => {
+    if (!activityKey || !creativeActivities[activityKey]) return;
+
+    const activity = creativeActivities[activityKey];
+if (!activity) return;
+
+const activityChoices =
+  typeof getCreativeActivityChoices === "function"
+    ? getCreativeActivityChoices(activityKey)
+    : [];
+
+const featuredActivity = activityChoices[0];
+
+    if (creativeDetailPanel && creativeDetailTitle && creativeDetailText) {
+      creativeDetailTitle.textContent = featuredActivity?.title || activity.title;
+      creativeDetailText.textContent = featuredActivity?.text || activity.detailText;
+      creativeDetailPanel.hidden = false;
+    }
+
+    if (!creativeWorkspace) {
+      recordCreativeActivity(activityKey);
+      return;
+    }
+
+    creativeWorkspace.hidden = false;
+    creativeWorkspaceTitle.textContent = featuredActivity?.title || activity.title;
+    creativeWorkspaceLabel.textContent = featuredActivity ? `${activity.label} • ${featuredActivity.category}` : activity.label;
+    if (creativeActivityMeta) {
+      creativeActivityMeta.hidden = !featuredActivity;
+      creativeActivityMeta.textContent = featuredActivity
+        ? `${featuredActivity.category} • ${featuredActivity.difficulty} • ${featuredActivity.level} • ${featuredActivity.source}`
+        : "";
+    }
+    hideCreativePanels();
+
+    if (creativeEmptyState) creativeEmptyState.classList.add("hidden");
+
+    if (activityKey === "drawing") {
+      if (drawingWorkspace) drawingWorkspace.classList.remove("hidden");
+      renderDrawingPrompts();
+    }
+
+    if (activityKey === "writing") {
+      if (writingWorkspace) writingWorkspace.classList.remove("hidden");
+      renderWritingPrompts();
+      restoreWritingDraft();
+    }
+
+    if (activityKey === "craft") {
+      if (craftWorkspace) craftWorkspace.classList.remove("hidden");
+      renderCraftIdeas();
+    }
+
+    if (activityKey === "challenge") {
+      if (challengeWorkspace) challengeWorkspace.classList.remove("hidden");
+      renderChallengeIdeas();
+    }
+
+    creativeWorkspace.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    recordCreativeActivity(activityKey);
+  };
+
+  if (creativeButtons.length > 0) {
+    creativeButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const activity = button.dataset.activity;
+        openCreativeWorkspace(activity);
+      });
+    });
+  }
+
+  if (closeCreativeWorkspaceButton) {
+    closeCreativeWorkspaceButton.addEventListener("click", () => {
+      if (creativeWorkspace) creativeWorkspace.hidden = true;
+      if (creativeDetailPanel) creativeDetailPanel.hidden = false;
+    });
+  }
+
+  if (currentPage === "creative" || currentPage === "home") {
 
     const getCreativeLevel = (grade = "", age = "") => {
       const normalizedGrade = String(grade).trim();

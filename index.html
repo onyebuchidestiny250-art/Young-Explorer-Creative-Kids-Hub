@@ -232,6 +232,275 @@
               <a class="text-link" id="topic-result-link" href="#" target="_blank" rel="noreferrer">Read more</a>
             </div>
           </aside>
+          <section class="creative-workspace info-card" id="creative-workspace" hidden aria-live="polite">
+  <div class="creative-workspace-header">
+    <div>
+      <p class="creative-detail-label" id="creative-workspace-label">Creative Studio</p>
+      <h3 id="creative-workspace-title">Drawing Ideas</h3>
+    </div>
+
+    <button
+      type="button"
+      class="btn btn-small btn-secondary"
+      id="creative-close-workspace"
+    >
+      Back to activities
+    </button>
+  </div>
+
+  <div id="creative-empty-state" class="creative-empty-state hidden">
+    Choose an activity to begin creating.
+  </div>
+
+  <!-- DRAWING WORKSPACE -->
+  <div id="drawing-workspace" class="creative-panel hidden">
+    <div class="creative-toolbar">
+
+      <div class="brush-controls">
+        <label class="tool-label" for="brush-size">Brush size</label>
+        <input
+          id="brush-size"
+          type="range"
+          min="2"
+          max="30"
+          value="8"
+        />
+      </div>
+
+      <div class="color-picker" aria-label="Brush colors">
+        <button
+          type="button"
+          class="color-swatch active"
+          data-color="#172033"
+          style="--swatch-color: #172033"
+          aria-label="Black"
+        ></button>
+
+        <button
+          type="button"
+          class="color-swatch"
+          data-color="#3B82F6"
+          style="--swatch-color: #3B82F6"
+          aria-label="Blue"
+        ></button>
+
+        <button
+          type="button"
+          class="color-swatch"
+          data-color="#22C55E"
+          style="--swatch-color: #22C55E"
+          aria-label="Green"
+        ></button>
+
+        <button
+          type="button"
+          class="color-swatch"
+          data-color="#FACC15"
+          style="--swatch-color: #FACC15"
+          aria-label="Yellow"
+        ></button>
+
+        <button
+          type="button"
+          class="color-swatch"
+          data-color="#8B5CF6"
+          style="--swatch-color: #8B5CF6"
+          aria-label="Purple"
+        ></button>
+
+        <button
+          type="button"
+          class="color-swatch"
+          data-color="#EC4899"
+          style="--swatch-color: #EC4899"
+          aria-label="Pink"
+        ></button>
+
+        <button
+          type="button"
+          class="color-swatch"
+          data-color="#F97316"
+          style="--swatch-color: #F97316"
+          aria-label="Orange"
+        ></button>
+      </div>
+
+      <div class="tool-buttons">
+        <button
+          type="button"
+          class="btn btn-small btn-primary"
+          id="draw-pencil-tool"
+        >
+          Pencil
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-small btn-secondary"
+          id="draw-eraser-tool"
+        >
+          Eraser
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-small btn-secondary"
+          id="draw-undo-btn"
+        >
+          Undo
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-small btn-secondary"
+          id="draw-redo-btn"
+        >
+          Redo
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-small btn-secondary"
+          id="draw-clear-btn"
+        >
+          Clear
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-small btn-primary"
+          id="draw-save-btn"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+
+    <div class="drawing-prompts">
+      <span class="prompt-label">Prompt ideas:</span>
+      <div class="prompt-chip-list" id="drawing-prompts"></div>
+    </div>
+
+    <div class="drawing-area-wrap">
+      <canvas
+        id="drawing-canvas"
+        width="900"
+        height="420"
+        aria-label="Drawing canvas"
+      ></canvas>
+    </div>
+  </div>
+
+  <!-- WRITING WORKSPACE -->
+  <div id="writing-workspace" class="creative-panel hidden">
+    <div class="writing-panel-layout">
+
+      <div class="writing-sidebar">
+        <h4>Writing prompts</h4>
+        <div class="prompt-chip-list" id="writing-prompts"></div>
+      </div>
+
+      <div class="writing-main">
+
+        <div class="writing-header">
+          <span class="prompt-label">Your story</span>
+
+          <div class="writing-actions">
+            <button
+              type="button"
+              class="btn btn-small btn-secondary"
+              id="writing-clear-btn"
+            >
+              Clear
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-small btn-primary"
+              id="writing-save-btn"
+            >
+              Save draft
+            </button>
+          </div>
+        </div>
+
+        <textarea
+          id="writing-story-input"
+          rows="12"
+          placeholder="Start writing your adventure..."
+        ></textarea>
+
+        <div class="writing-stats">
+          <span id="word-count">0 words</span>
+          <span id="character-count">0 characters</span>
+          <span id="writing-save-status">Draft not saved yet</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- CRAFT WORKSPACE -->
+  <div id="craft-workspace" class="creative-panel hidden">
+
+    <div class="craft-list" id="craft-list"></div>
+
+    <div class="craft-step-panel hidden" id="craft-step-panel">
+
+      <div class="craft-step-header">
+        <div>
+          <p class="creative-detail-label">Craft in progress</p>
+          <h4 id="craft-step-title">Paper Rocket</h4>
+        </div>
+
+        <span class="craft-step-badge" id="craft-step-badge">
+          Easy
+        </span>
+      </div>
+
+      <div class="craft-step-meta">
+        <span id="craft-step-time">15 minutes</span>
+        <span id="craft-step-materials">
+          Paper, tape, scissors
+        </span>
+      </div>
+
+      <div class="craft-step-card">
+        <p id="craft-step-instruction">
+          Fold the paper.
+        </p>
+      </div>
+
+      <div class="craft-step-controls">
+        <button
+          type="button"
+          class="btn btn-small btn-secondary"
+          id="craft-prev-btn"
+        >
+          Previous Step
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-small btn-primary"
+          id="craft-next-btn"
+        >
+          Next Step
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CHALLENGE WORKSPACE -->
+  <div id="challenge-workspace" class="creative-panel hidden">
+    <div
+      class="challenge-idea-grid"
+      id="challenge-idea-grid"
+    ></div>
+  </div>
+
+</section>
         </div>
       </section>
 
@@ -410,6 +679,106 @@
 
             <button type="button" class="btn btn-primary" id="complete-started-challenge-btn">Complete Challenge</button>
           </aside>
+          <section class="creative-workspace info-card" id="creative-workspace" hidden aria-live="polite">
+            <div class="creative-workspace-header">
+              <div>
+                <p class="creative-detail-label" id="creative-workspace-label">Creative Studio</p>
+                <h3 id="creative-workspace-title">Drawing Ideas</h3>
+              </div>
+              <button type="button" class="btn btn-small btn-secondary" id="creative-close-workspace">Back to activities</button>
+            </div>
+
+            <div id="creative-empty-state" class="creative-empty-state hidden">Choose an activity to begin creating.</div>
+
+            <div id="drawing-workspace" class="creative-panel hidden">
+              <div class="creative-toolbar">
+                <div class="brush-controls">
+                  <label class="tool-label" for="brush-size">Brush size</label>
+                  <input id="brush-size" type="range" min="2" max="30" value="8" />
+                </div>
+                <div class="color-picker" aria-label="Brush colors">
+                  <button type="button" class="color-swatch active" data-color="#172033" style="--swatch-color: #172033" aria-label="Black"></button>
+                  <button type="button" class="color-swatch" data-color="#3B82F6" style="--swatch-color: #3B82F6" aria-label="Blue"></button>
+                  <button type="button" class="color-swatch" data-color="#22C55E" style="--swatch-color: #22C55E" aria-label="Green"></button>
+                  <button type="button" class="color-swatch" data-color="#FACC15" style="--swatch-color: #FACC15" aria-label="Yellow"></button>
+                  <button type="button" class="color-swatch" data-color="#8B5CF6" style="--swatch-color: #8B5CF6" aria-label="Purple"></button>
+                  <button type="button" class="color-swatch" data-color="#EC4899" style="--swatch-color: #EC4899" aria-label="Pink"></button>
+                  <button type="button" class="color-swatch" data-color="#F97316" style="--swatch-color: #F97316" aria-label="Orange"></button>
+                </div>
+                <div class="tool-buttons">
+                  <button type="button" class="btn btn-small btn-primary" id="draw-pencil-tool">Pencil</button>
+                  <button type="button" class="btn btn-small btn-secondary" id="draw-eraser-tool">Eraser</button>
+                  <button type="button" class="btn btn-small btn-secondary" id="draw-undo-btn">Undo</button>
+                  <button type="button" class="btn btn-small btn-secondary" id="draw-redo-btn">Redo</button>
+                  <button type="button" class="btn btn-small btn-secondary" id="draw-clear-btn">Clear</button>
+                  <button type="button" class="btn btn-small btn-primary" id="draw-save-btn">Save</button>
+                </div>
+              </div>
+
+              <div class="drawing-prompts">
+                <span class="prompt-label">Prompt ideas:</span>
+                <div class="prompt-chip-list" id="drawing-prompts"></div>
+              </div>
+
+              <div class="drawing-area-wrap">
+                <canvas id="drawing-canvas" width="900" height="420" aria-label="Drawing canvas"></canvas>
+              </div>
+            </div>
+
+            <div id="writing-workspace" class="creative-panel hidden">
+              <div class="writing-panel-layout">
+                <div class="writing-sidebar">
+                  <h4>Writing prompts</h4>
+                  <div class="prompt-chip-list" id="writing-prompts"></div>
+                </div>
+                <div class="writing-main">
+                  <div class="writing-header">
+                    <span class="prompt-label">Your story</span>
+                    <div class="writing-actions">
+                      <button type="button" class="btn btn-small btn-secondary" id="writing-clear-btn">Clear</button>
+                      <button type="button" class="btn btn-small btn-primary" id="writing-save-btn">Save draft</button>
+                    </div>
+                  </div>
+                  <textarea id="writing-story-input" rows="12" placeholder="Start writing your adventure..."></textarea>
+                  <div class="writing-stats">
+                    <span id="word-count">0 words</span>
+                    <span id="character-count">0 characters</span>
+                    <span id="writing-save-status">Draft not saved yet</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="craft-workspace" class="creative-panel hidden">
+              <div class="craft-list" id="craft-list"></div>
+              <div class="craft-step-panel hidden" id="craft-step-panel">
+                <div class="craft-step-header">
+                  <div>
+                    <p class="creative-detail-label">Craft in progress</p>
+                    <h4 id="craft-step-title">Paper Rocket</h4>
+                  </div>
+                  <span class="craft-step-badge" id="craft-step-badge">Easy</span>
+                </div>
+                <div class="craft-step-meta">
+                  <span id="craft-step-time">15 minutes</span>
+                  <span id="craft-step-materials">Paper, tape, scissors</span>
+                </div>
+                <div class="craft-step-card">
+                  <p id="craft-step-instruction">Fold the paper.</p>
+                </div>
+                <div class="craft-step-controls">
+                  <button type="button" class="btn btn-small btn-secondary" id="craft-prev-btn">Previous Step</button>
+                  <button type="button" class="btn btn-small btn-primary" id="craft-next-btn">Next Step</button>
+                </div>
+              </div>
+            </div>
+
+            <div id="challenge-workspace" class="creative-panel hidden">
+              <div class="challenge-idea-grid" id="challenge-idea-grid"></div>
+            </div>
+          </section>
+        </div>
+      </section>
         </div>
       </section>
 
@@ -536,8 +905,8 @@
         <div>
           <h3>Young Explorer &amp; Creative Kids Hub</h3>
           <p>Learn, explore, create, and play every day.</p>
-        </div>
-        <nav aria-label="Footer navigation">
+        </iv>
+        <nav daria-label="Footer navigation">
           <ul class="footer-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="explore.html">Explore</a></li>

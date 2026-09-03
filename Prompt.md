@@ -124,7 +124,7 @@ It should show:
 Total points
 Badges earned
 Completed quizzes
-Completed challenges
+Completed challe
 Completed activities
 
 Suggested badges include:
