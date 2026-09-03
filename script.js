@@ -2735,29 +2735,40 @@ const featuredActivity = activityChoices[0];
         }
       };
 
-      const beginPaint = (event) => {
-        const bounds = canvas.getBoundingClientRect();
-        const x = event.clientX - bounds.left;
-        const y = event.clientY - bounds.top;
-        painting = true;
-        context.beginPath();
-        context.moveTo(x, y);
-        context.lineWidth = brushSize;
-        context.strokeStyle = isErasing ? "#ffffff" : brushColor;
-        context.lineTo(x, y);
-        context.stroke();
-      };
+      const getCanvasCoordinates = (event) => {
+  const bounds = canvas.getBoundingClientRect();
 
-      const continuePaint = (event) => {
-        if (!painting) return;
-        const bounds = canvas.getBoundingClientRect();
-        const x = event.clientX - bounds.left;
-        const y = event.clientY - bounds.top;
-        context.lineWidth = brushSize;
-        context.strokeStyle = isErasing ? "#ffffff" : brushColor;
-        context.lineTo(x, y);
-        context.stroke();
-      };
+  const scaleX = canvas.width / bounds.width;
+  const scaleY = canvas.height / bounds.height;
+
+  return {
+    x: (event.clientX - bounds.left) * scaleX,
+    y: (event.clientY - bounds.top) * scaleY
+  };
+};
+
+const beginPaint = (event) => {
+  const { x, y } = getCanvasCoordinates(event);
+
+  painting = true;
+  context.beginPath();
+  context.moveTo(x, y);
+  context.lineWidth = brushSize;
+  context.strokeStyle = isErasing ? "#ffffff" : brushColor;
+  context.lineTo(x, y);
+  context.stroke();
+};
+
+const continuePaint = (event) => {
+  if (!painting) return;
+
+  const { x, y } = getCanvasCoordinates(event);
+
+  context.lineWidth = brushSize;
+  context.strokeStyle = isErasing ? "#ffffff" : brushColor;
+  context.lineTo(x, y);
+  context.stroke();
+};
 
       const stopPaint = () => {
         if (!painting) return;
