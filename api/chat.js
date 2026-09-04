@@ -28,6 +28,8 @@ export default async function handler(req, res) {
     return sendJson(res, 405, { error: "Method not allowed." });
   }
 
+  console.log("OPENAI_API_KEY present:", Boolean(process.env.OPENAI_API_KEY));
+
   if (!process.env.OPENAI_API_KEY) {
     return sendJson(res, 500, {
       error: "Explorer Buddy AI is not connected yet. Add OPENAI_API_KEY to the Vercel project environment variables."
