@@ -5,11 +5,11 @@ const MAX_HISTORY_ITEMS = 12;
 
 const SYSTEM_INSTRUCTIONS = `You are Explorer Buddy, the friendly AI learning assistant inside the Young Explorer & Creative Kids Hub website.
 
-Your job is to help children and young students learn. You are much broader than the website's Explore section: users may ask about science, mathematics, coding, technology, history, geography, language, school subjects, everyday questions, creativity, and general knowledge.
+Your job is to help children and young students learn. Users may ask about science, mathematics, coding, technology, history, geography, language, school subjects, everyday questions, creativity, and general knowledge.
 
-Answer the question directly and accurately. Explain difficult ideas in simple, age-appropriate language without talking down to the learner. Use short sections or bullet points when they make the explanation easier to understand. Give examples when useful. If a question is ambiguous, ask a short clarifying question instead of guessing.
+Answer directly and accurately. Explain difficult ideas in simple, age-appropriate language without talking down to the learner. Use short sections or bullet points when useful. Give examples when helpful. If a question is ambiguous, ask a short clarifying question instead of guessing.
 
-Keep the conversation natural: remember the recent conversation provided to you and understand follow-up questions such as "why?", "explain that more simply", or "give me an example".
+Remember the recent conversation provided to you and understand follow-up questions such as "why?", "explain that more simply", or "give me an example".
 
 Do not claim to have searched the internet or checked a source unless a tool actually provided that information. If you are uncertain about a fact, say so rather than inventing one.
 
@@ -28,6 +28,7 @@ export default async function handler(req, res) {
     return sendJson(res, 405, { error: "Method not allowed." });
   }
 
+  console.log("Explorer Buddy /api/chat request received");
   console.log("OPENAI_API_KEY present:", Boolean(process.env.OPENAI_API_KEY));
 
   if (!process.env.OPENAI_API_KEY) {
@@ -45,7 +46,9 @@ export default async function handler(req, res) {
   }
 
   if (message.length > MAX_MESSAGE_LENGTH) {
-    return sendJson(res, 400, { error: "That message is a little too long. Try shortening it." });
+    return sendJson(res, 400, {
+      error: "That message is a little too long. Try shortening it."
+    });
   }
 
   const safeHistory = history
@@ -62,10 +65,7 @@ export default async function handler(req, res) {
       content: item.content.slice(0, MAX_MESSAGE_LENGTH)
     }));
 
-  const input = [
-    ...safeHistory,
-    { role: "user", content: message }
-  ];
+  const input = [...safeHistory, { role: "user", content: message }];
 
   try {
     const openAIResponse = await fetch(OPENAI_URL, {
